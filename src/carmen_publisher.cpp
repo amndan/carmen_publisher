@@ -38,8 +38,6 @@
 #include <vector>
 #include <dirent.h>
 
-
-
 #include "ros/ros.h"
 #include "sensor_msgs/LaserScan.h"
 #include <diagnostic_updater/diagnostic_updater.h> // Publishing over the diagnostics channels.
@@ -157,10 +155,18 @@ int main(int argc, char **argv) {
     float angle_min = 0.0;
     float angle_max = 0.0;
 
-    float range_values[181] = {0};
-    uint32_t intensity_values[181] = {0};
-    uint32_t n_range_values = 181;
+    unsigned int nValues = 180;
+
+    float range_values[nValues];
+    uint32_t intensity_values[nValues];
+    uint32_t n_range_values = nValues;
     uint32_t n_intensity_values = 0;
+
+    for (unsigned int i = 0; i < nValues; i++)
+    {
+      intensity_values[i] = 0;
+      range_values[i] = 0;
+    }
 
     frame_id = "laser";
 
@@ -203,6 +209,8 @@ int main(int argc, char **argv) {
 
     double time;
 
+    string laserName("FLASER");
+
     try {
         while (!inputFile.eof()) {
 
@@ -223,21 +231,21 @@ int main(int argc, char **argv) {
                     inputFile >> data;//ignoring next 3 data
                        
                 inputFile >> data; //for time
-		time = atof(data.c_str());
+                time = atof(data.c_str());
                
             }
             do {
                 inputFile >> data;
-            } while (data.compare("ROBOTLASER1") != 0 && !inputFile.eof());
+            } while (data.compare(laserName) != 0 && !inputFile.eof());
             // if(scanID > 1 && data.compare("ROBOTLASER1") == 0) {
             //     distFromLastStep = getDistBtw2Points(atof(odoms[1].c_str()),atof(odoms[2].c_str()),lastX,lastY);
             //    }
             //(0.1 means 10cm apart)
-            if (data.compare("ROBOTLASER1") == 0) {
-                for (unsigned int i = 0; i < 8; i++) {
+            if (data.compare(laserName) == 0) {
+                for (unsigned int i = 0; i < 1; i++) { // flaser: count ranges
                     inputFile >> data;
                 }
-                for (int i = 0; i < 181; i++) {
+                for (int i = 0; i < nValues; i++) {
                     //scan from carmen file
                     inputFile >> data;
                     range_values[i] = atof(data.c_str());
@@ -266,7 +274,8 @@ int main(int argc, char **argv) {
 
             odom_broadcaster.sendTransform(odom_trans);
 
-	    cout<<"Scan "<<scanID<<" published"<<endl;
+	    //cout<<"Scan "<<scanID<<" published"<<endl;
+
 	    usleep(40000);//50000usec = 50ms
         }
     } catch (...) {
