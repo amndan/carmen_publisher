@@ -6,12 +6,11 @@ project(carmen_publisher)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  rospy
   std_msgs
-sensor_msgs
-geometry_msgs
-nav_msgs
-tf
+  sensor_msgs
+  geometry_msgs
+  nav_msgs
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
@@ -111,6 +110,9 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 
 add_executable(carmen_publisher src/carmen_publisher.cpp)
 target_link_libraries(carmen_publisher ${catkin_LIBRARIES})
+
+add_executable(carmenConverter src/carmenConverter.cpp)
+target_link_libraries(carmenConverter ${catkin_LIBRARIES})
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes

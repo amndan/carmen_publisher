@@ -1,0 +1,21 @@
+Parsing weights: {1.0,1.0,1.0,0.0,0.0,0.0} => {1, 1, 1, 0, 0, 0}
+Reading log.
+Done.
+
+Parsing Slam log.
+Parsed messages in (976052858.462011, 976053601.854600) = 743.392589s.
+
+Reading log.
+Done.
+
+Parsing Relations.
+Parsed messages in (976052896.784509, 976055541.107721) = 2644.323212s.
+
+Parsed 2984 relations, 3596 slam poses and 0 odometry poses.
+
+Generating relation points from slam.
+Done.
+
+Writing unsorted.errors ... done.
+Error: Mean 4.23 Std: 7.28 (Num: 2984)
+Finished.

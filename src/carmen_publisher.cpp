@@ -74,7 +74,7 @@ void publish_scan(diagnostic_updater::DiagnosedPublisher<sensor_msgs::LaserScan>
     scan_msg.range_max = 8.1;
 
     scan_msg.ranges.resize(n_range_values);
-    scan_msg.header.stamp = ros::Time::now();//(ros::Time)time;//same time as odo
+    scan_msg.header.stamp = time;//(ros::Time)time;//same time as odo
     for (size_t i = 0; i < n_range_values; i++) {
         // Check for overflow values, see pg 124 of the Sick LMS telegram listing
         /*switch (range_values[i]) {
@@ -208,6 +208,7 @@ int main(int argc, char **argv) {
     ifstream inputFile(addForLogFile, ios::in); //open to read
 
     double time;
+    double laserTime;
 
     string laserName("FLASER");
 
@@ -252,11 +253,22 @@ int main(int argc, char **argv) {
                     //cout<<range_values[i]<<" ";
                 }
 
+                for (unsigned int i = 0; i < 6; i++) { // flaser: pose data; not used here
+                    inputFile >> data;
+                }
+
+                inputFile >> data;
+                laserTime = atof(data.c_str());
+
+
                 scanID++;
             }
+
+            ros::Time rosLaserTime(laserTime);
+
             //publishing laserScan
             publish_scan(&scan_pub, range_values, n_range_values, intensity_values,
-                    n_intensity_values, scan_time, angle_min, angle_max, frame_id,ros::Time::now());
+                    n_intensity_values, scan_time, angle_min, angle_max, frame_id, rosLaserTime);
             ros::spinOnce();
             // Update diagnostics
             updater.update();
@@ -276,7 +288,7 @@ int main(int argc, char **argv) {
 
 	    //cout<<"Scan "<<scanID<<" published"<<endl;
 
-	    usleep(40000);//50000usec = 50ms
+	    usleep(60000);//50000usec = 50ms
         }
     } catch (...) {
         ROS_ERROR("Unknown error.");
