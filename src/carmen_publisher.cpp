@@ -71,7 +71,7 @@ void publish_scan(diagnostic_updater::DiagnosedPublisher<sensor_msgs::LaserScan>
     scan_msg.time_increment = scan_time / (2 * M_PI) * scan_msg.angle_increment;
     scan_msg.range_min = 0;
 
-    scan_msg.range_max = 8.1;
+    scan_msg.range_max = 60.0;
 
     scan_msg.ranges.resize(n_range_values);
     scan_msg.header.stamp = time;//(ros::Time)time;//same time as odo
@@ -113,7 +113,7 @@ void publish_scan(diagnostic_updater::DiagnosedPublisher<sensor_msgs::LaserScan>
 }
 
 int main(int argc, char **argv) {
-	if(argc != 2) {
+	if(argc < 2) {
 		cout<<"Usage: rosrun carmen_publisher carmen_publisher <filename-with-path>"<<endl;
 		return 0;
 	}
@@ -273,7 +273,7 @@ int main(int argc, char **argv) {
             // Update diagnostics
             updater.update();
 	
-	    usleep(10000);
+	    //usleep(10000);
 
 
             //publishing tf
@@ -288,7 +288,7 @@ int main(int argc, char **argv) {
 
 	    //cout<<"Scan "<<scanID<<" published"<<endl;
 
-	    usleep(60000);//50000usec = 50ms
+	    usleep(40000);//50000usec = 50ms
         }
     } catch (...) {
         ROS_ERROR("Unknown error.");
