@@ -213,7 +213,7 @@ int main(int argc, char **argv) {
     string laserName("FLASER");
 
     try {
-        while (!inputFile.eof()) {
+        while (!inputFile.eof() && ros::ok()) {
 
             do {
                 inputFile >> data;
