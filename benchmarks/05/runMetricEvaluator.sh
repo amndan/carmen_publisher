@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DATA="intel"
+DATA="fr079"
 BAGS="../../bags/slamBenchmarking"
 EVAL="../../metricEvaluator/metricEvaluator"
 

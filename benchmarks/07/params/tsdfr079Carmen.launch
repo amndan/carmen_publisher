@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<launch>
+
+  <include file="$(find amndan_launch)/launch/slam.launch">
+         <arg name="x_offset" value="0.0"/>
+         <arg name="y_offset" value="0.0"/>
+         <arg name="yaw_offset" value="0.0"/>
+         
+         <arg name="map_size" value="11"/>
+         <arg name="cellsize" value="0.025"/>
+         <arg name="truncation_radius" value="10"/>
+         
+         <arg name="min_range" value="0.0"/>
+         <arg name="max_range" value="30.0"/>
+
+         <arg name="object_inflation_factor" value="1"/>
+
+         <arg name="registration_mode" value="1"/>
+         <arg name="icp_iterations" value="30"/>
+
+         <arg name="reg_trs_max" value="1.0"/>
+         <arg name="reg_sin_rot_max" value="0.5"/>
+
+         <arg name="trials" value="30"/>
+         <arg name="sizeControlSet" value="360"/>
+  </include>
+  
+  <node pkg="carmen_publisher" type="carmenConverter" name="carmenConverter">
+<!--	<remap from="pose" to="slam_out_pose"/>   -->
+  </node>
+
+  <node pkg="carmen_publisher" type="carmen_publisher" name="carmenPublisher" args="$(find carmen_publisher)/bags/slamBenchmarking/fr079_.clf"/>
+
+  <node pkg="rviz" type="rviz" name="rviz"/>
+
+</launch>
