@@ -1,0 +1,8 @@
+id 	1
+date 	"Sun Jan 24 12:52:46 CET 2016"
+sha 	81b5974fa649d0472ba4ded427a51202327d87b2
+slam	24.0
+scan	24.0
+data	"intel"
+chip	"virtual machine i7"
+info	"first shot with tsd_pdf approach"

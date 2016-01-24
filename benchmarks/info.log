@@ -1,0 +1,5 @@
+NR MEAN_TRANS STD_TRANS MEAN_PHI STD_PHI INFO
+01: 0.033777, 0.049649, 0.008972, 0.015562; first shot with pdf
+02: 0.031056, 0.046827, 0.007942, 0.008398; same as 01 (repeadability)
+03: 0.035428, 0.038421, 0.011390, 0.017427; first shot icp
+04: 0.033251, 0.036586, 0.008169, 0.008195; pdf with larger cellsize
