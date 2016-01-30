@@ -90,6 +90,7 @@ struct error {
    double t1;
    double t2;
    double val;
+   Vector delta;
 };
 
 class CompErrorVal
@@ -165,6 +166,17 @@ void writeErrorStats(deque<error> & errors, string filename)
    }
    fclose(f);
 
+   cout << "Writing " << filename << " ... ";  fflush(stdout);
+
+   f = fopen((filename + ".raw").c_str(), "w");
+   if(!f)
+      return;
+   for(deque<error>::iterator it = errors.begin(); it != errors.end(); it++) {
+      error e = *it;
+      fprintf(f, "%f; %f; %f; %f\n", e.val, e.delta[0], e.delta[1], e.delta[5]);
+   }
+   fclose(f);
+
    cout << "done.\n";
 }
 
@@ -200,6 +212,7 @@ deque<error> calcErrors()
       realCV[5] = rpsi;
 
       Vector delta = slamCV - realCV;
+	
       // noramlize angular errors
       delta[3] = normalize_theta(delta[3]);
       delta[4] = normalize_theta(delta[4]);
@@ -211,9 +224,11 @@ deque<error> calcErrors()
       }
 
       error e;
+      e.delta = delta;
       e.val = value;
       e.t1 = c.t1;
       e.t2 = c.t2;
+
       errors.push_back(e);
    }
 
