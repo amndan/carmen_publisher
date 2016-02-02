@@ -7,3 +7,7 @@ NR MEAN_TRANS STD_TRANS MEAN_PHI STD_PHI INFO
 06: 0.066725, 0.061352, 0.010131, 0.012686, fr079 pdf less cell size than 05
 07: 0.069208, 0.067569, 0.013424, 0.016765, fr079 icp
 08: 0.030205, 0.029165, 0.007309, 0.010823, csail pdf (not possible with icp)
+
+09: ... 25Hz; intel pdf
+10: ... 50Hz; intel pdf with double max rate
+11: ... 10Hz; intel icp

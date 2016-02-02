@@ -154,6 +154,14 @@ int main(int argc, char **argv)
   float angle_min = 0.0;
   float angle_max = 0.0;
 
+  double rate;
+  if (argc == 3)
+  {
+    rate = atof(argv[2]);
+    std::cout << "rate is set to: " << rate << std::endl;
+  }
+  else rate = 20;
+
   const char* addForLogFile = argv[1];  //"/home/albot1/rosData/carmen.log";//logFile6-ClockW-sLoop-robot1.log
   ifstream inputFile(addForLogFile, ios::in);  //open to read
   unsigned int nValues;
@@ -325,7 +333,7 @@ int main(int argc, char **argv)
 
       //cout<<"Scan "<<scanID<<" published"<<endl;
 
-      usleep(100000);  //50000usec = 50ms
+      usleep(rate * 1000);  //50000usec = 50ms
     }
   }
   catch(...)
