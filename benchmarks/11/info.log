@@ -1,0 +1,8 @@
+id 	11
+date 	"Mon Feb  1 16:55:39 CET 2016"
+sha 	81b5974fa649d0472ba4ded427a51202327d87b2
+slam	10.0
+scan	10.0
+data	"intel"
+chip	"virtual machine i7"
+info	"intel with tsd; comparable to 09"
